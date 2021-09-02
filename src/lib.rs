@@ -1,5 +1,7 @@
 #![deny(clippy::all)]
 
+mod converter;
+
 #[macro_use]
 extern crate napi_derive;
 
@@ -39,6 +41,8 @@ fn init(mut exports: JsObject) -> Result<()> {
   exports.create_named_method("sync", sync_fn)?;
 
   exports.create_named_method("sleep", sleep)?;
+
+  exports.create_named_method("convertAsync", convert_async)?;
   Ok(())
 }
 

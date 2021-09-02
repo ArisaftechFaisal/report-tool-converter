@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import { sleep, sync } from '../index'
+import { sleep, sync, convertAsync } from '../index'
 
 test('sync function from native code', (t) => {
   const fixture = 42
@@ -11,4 +11,9 @@ test('sleep function from native code', async (t) => {
   const timeToSleep = 200
   const value = await sleep(timeToSleep)
   t.is(value, timeToSleep * 2)
+})
+
+test('convert function', async (t) => {
+  const res = await convertAsync('something', 'something')
+  t.is(res, 1)
 })

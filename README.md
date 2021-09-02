@@ -1,12 +1,21 @@
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
 # `report-tool-converter`
 
----
+![https://github.com/napi-rs/package-template/actions](https://github.com/napi-rs/package-template/workflows/CI/badge.svg)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-N-API package for extracting metadata as JSON from specifically formatted Excel files.
+> N-API module to extract metadata as JSON from specifically formatted Excel files/
 
-## Instructions
+## Support matrix
+
+### Operating Systems
+
+|               | node12 | node14 | node16 |
+| ------------- | ------ | ------ | ------ |
+| Windows x64   | ×      | ✓      | ×      |
+| Windows x32   | ×      | ✓      | ×      |
+| Linux x64 gnu | ×      | ✓      | ×      |
+
+## Development Scripts / Abilities
 
 ### Build
 
