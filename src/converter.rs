@@ -1,4 +1,4 @@
-use napi::{CallContext, Env, JsBoolean, JsObject, JsUnknown, JsNumber, Result, Task};
+use napi::{CallContext, Env, JsBoolean, JsNumber, JsObject, JsUnknown, Result, Task};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]

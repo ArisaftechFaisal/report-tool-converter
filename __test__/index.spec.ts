@@ -14,6 +14,6 @@ test('sleep function from native code', async (t) => {
 })
 
 test('convert function', async (t) => {
-  const res = await convertAsync('something', 'something')
+  const res = await convertAsync({ inputPath: 'something', outputPath: 'something' })
   t.is(res, 1)
 })

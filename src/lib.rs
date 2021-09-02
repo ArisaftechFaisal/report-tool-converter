@@ -42,7 +42,7 @@ fn init(mut exports: JsObject) -> Result<()> {
 
   exports.create_named_method("sleep", sleep)?;
 
-  exports.create_named_method("convertAsync", convert_async)?;
+  exports.create_named_method("convertAsync", converter::convert_async)?;
   Ok(())
 }
 
