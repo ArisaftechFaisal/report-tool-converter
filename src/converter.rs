@@ -1,4 +1,4 @@
-use napi::{CallContext, Env, JsBoolean, JsNumber, JsObject, JsUnknown, Result, Task};
+use napi::{CallContext, Env, JsNumber, JsObject, JsUnknown, Result, Task};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -17,7 +17,7 @@ impl Task for ConvertAsync {
   }
 
   fn resolve(self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
-    env.create_int32(output as i32)
+    env.create_int32(output)
   }
 }
 
