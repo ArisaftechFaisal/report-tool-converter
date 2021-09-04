@@ -1,9 +1,9 @@
 use napi::{CallContext, Env, JsNumber, JsObject, JsUnknown, Result, Task};
 use serde::{Deserialize, Serialize};
 
-mod reader;
 mod error;
 mod field;
+mod reader;
 mod subject;
 
 #[derive(Serialize, Deserialize, Debug)]

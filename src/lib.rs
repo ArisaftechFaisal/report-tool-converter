@@ -1,7 +1,7 @@
 #![deny(clippy::all)]
 
-mod converter;
 mod constants;
+mod converter;
 
 #[macro_use]
 extern crate napi_derive;
