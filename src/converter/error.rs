@@ -12,12 +12,14 @@ pub enum ParseError {
     DeserializeError(String),
     #[error("XlsxError: {0}")]
     XlsxError(String),
-    #[error("Incorrect subject \"{0}\"")]
+    #[error("Wrong subject format \"{0}\"")]
     IncorrectSubject(String),
-    #[error("Incorrect field type \"{0}\"")]
+    #[error("Wrong field type \"{0}\"")]
     IncorrectFieldVariant(String),
-    #[error("Incorrect required string \"{0}\"")]
+    #[error("Wrong required format \"{0}\"")]
     IncorrectRequired(String),
+    #[error("Wrong input specification format \"{0}\"")]
+    IncorrectInputSpecificationError(String),
     #[error("Expected string, found something else")]
     ExpectedString,
     #[error("Expected whole number, found something else")]
@@ -28,6 +30,8 @@ pub enum ParseError {
     UnparseableFieldNumber,
     #[error("Could not parse cell")]
     UnparseableCell,
+    #[error("Placeholder for multiselect not in options")]
+    PlaceholderNotInOptions,
     #[error("ParseError: {0}")]
     CustomMsg(String)
 }
