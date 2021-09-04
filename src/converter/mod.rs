@@ -1,6 +1,11 @@
 use napi::{CallContext, Env, JsNumber, JsObject, JsUnknown, Result, Task};
 use serde::{Deserialize, Serialize};
 
+mod reader;
+mod error;
+mod field;
+mod subject;
+
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 struct ConvertAsync {
