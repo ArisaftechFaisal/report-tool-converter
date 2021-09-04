@@ -67,12 +67,10 @@ impl Field {
     display_condition_second: Option<Vec<String>>,
     display_condition_third: Option<Vec<String>>,
   ) -> Result<Self> {
-    let mut validators: Option<Vec<Validator>>;
-    let price_max: Option<u64>;
-    let mut placeholder: Option<String> = None;
-    let mut options_key: Option<String> = None;
 
     // Placeholder logic
+    let mut placeholder: Option<String> = None;
+    let mut options_key: Option<String> = None;
     if let Some(ref plc_text) = placeholder_text {
       match variant {
         FieldVariant::Text | FieldVariant::TextArea => {
@@ -84,6 +82,7 @@ impl Field {
     }
 
     // PriceMax logic
+    let price_max: Option<u64>;
     if let None = max {
       price_max = None;
     } else if let FieldVariant::TextArea = variant {
@@ -93,6 +92,7 @@ impl Field {
     }
 
     // Validators logic
+    let mut validators: Option<Vec<Validator>>;
     match variant {
       FieldVariant::Text => {
         validators = Some(Self::text_validators(
