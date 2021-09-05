@@ -93,13 +93,9 @@ impl Field {
     }
 
     // PriceMax logic
-    let price_max: Option<u64>;
-    if let None = max {
-      price_max = None;
-    } else if let FieldVariant::TextArea = variant {
-      price_max = Some(max.unwrap());
-    } else {
-      price_max = None;
+    let mut price_max: Option<u64> = None;
+    if let FieldVariant::TextArea = variant {
+      price_max = max;
     }
 
     // Validators logic

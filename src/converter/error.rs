@@ -41,49 +41,37 @@ pub enum ConvertError {
 
 impl From<calamine::Error> for ConvertError {
   fn from(err: calamine::Error) -> Self {
-    match err {
-      _ => ConvertError::ReadError(err.to_string()),
-    }
+    ConvertError::ReadError(err.to_string())
   }
 }
 
 impl From<calamine::DeError> for ConvertError {
   fn from(err: calamine::DeError) -> Self {
-    match err {
-      _ => ConvertError::DeserializeError(err.to_string()),
-    }
+    ConvertError::DeserializeError(err.to_string())
   }
 }
 
 impl From<calamine::XlsxError> for ConvertError {
   fn from(err: calamine::XlsxError) -> Self {
-    match err {
-      _ => ConvertError::XlsxError(err.to_string()),
-    }
+    ConvertError::XlsxError(err.to_string())
   }
 }
 
 impl From<ParseIntError> for ConvertError {
-  fn from(err: ParseIntError) -> Self {
-    match err {
-      _ => ConvertError::ExpectedInt,
-    }
+  fn from(_: ParseIntError) -> Self {
+    ConvertError::ExpectedInt
   }
 }
 
 impl From<serde_json::Error> for ConvertError {
   fn from(err: Error) -> Self {
-    match err {
-      _ => ConvertError::SerializeError(err.to_string()),
-    }
+    ConvertError::SerializeError(err.to_string())
   }
 }
 
 impl From<std::io::Error> for ConvertError {
   fn from(err: std::io::Error) -> Self {
-    match err {
-      _ => ConvertError::IOError(err.to_string()),
-    }
+    ConvertError::IOError(err.to_string())
   }
 }
 

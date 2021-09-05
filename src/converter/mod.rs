@@ -38,7 +38,7 @@ pub fn convert_async(ctx: CallContext) -> Result<JsObject> {
   Ok(async_task.promise_object())
 }
 
-fn convert(input_path: &String, ouput_path: &String) -> error::Result<()> {
+fn convert(input_path: &str, ouput_path: &str) -> error::Result<()> {
   let page = reader::parse(input_path)?;
   writer::write_to_file(page, ouput_path)?;
   Ok(())
@@ -46,8 +46,6 @@ fn convert(input_path: &String, ouput_path: &String) -> error::Result<()> {
 
 impl From<ConvertError> for napi::Error {
   fn from(err: ConvertError) -> Self {
-    match err {
-      _ => napi::Error::from_reason(format!("{:?}", err)),
-    }
+    napi::Error::from_reason(format!("{:?}", err))
   }
 }

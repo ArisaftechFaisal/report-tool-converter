@@ -1,5 +1,5 @@
 #![deny(clippy::all)]
-
+#[allow(clippy::too_many_arguments)]
 mod converter;
 
 #[macro_use]

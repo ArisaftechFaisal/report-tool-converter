@@ -5,21 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="676dda92-a943-4af3-8834-75649ca17d15" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/converter/test.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/writer.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__test__/index.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__test__/index.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/.~lock.test_01.xlsx#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/test_01.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npm/linux-x64-gnu/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/npm/linux-x64-gnu/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npm/win32-x64-msvc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/npm/win32-x64-msvc/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/converter/error.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/error.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/converter/field/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/field/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/converter/field/subtypes.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/field/subtypes.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/converter/field/validators.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/field/validators.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/converter/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/converter/reader.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/reader.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/converter/subject.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/converter/subject.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
