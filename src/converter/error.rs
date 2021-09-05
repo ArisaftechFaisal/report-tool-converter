@@ -1,9 +1,10 @@
+use serde_json::Error;
 use std::convert::From;
 use std::num::ParseIntError;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum ParseError {
+pub enum ConvertError {
   #[error("No worksheet in selected Xlsx file")]
   NoWorksheet,
   #[error("ReadError: {0}")]
@@ -32,38 +33,58 @@ pub enum ParseError {
   UnparseableCell,
   #[error("Placeholder for multiselect not in options")]
   PlaceholderNotInOptions,
+  #[error("Error while trying to serialize: {0}")]
+  SerializeError(String),
+  #[error("IO Error: {0}")]
+  IOError(String),
 }
 
-impl From<calamine::Error> for ParseError {
+impl From<calamine::Error> for ConvertError {
   fn from(err: calamine::Error) -> Self {
     match err {
-      _ => ParseError::ReadError(err.to_string()),
+      _ => ConvertError::ReadError(err.to_string()),
     }
   }
 }
 
-impl From<calamine::DeError> for ParseError {
+impl From<calamine::DeError> for ConvertError {
   fn from(err: calamine::DeError) -> Self {
     match err {
-      _ => ParseError::DeserializeError(err.to_string()),
+      _ => ConvertError::DeserializeError(err.to_string()),
     }
   }
 }
 
-impl From<calamine::XlsxError> for ParseError {
+impl From<calamine::XlsxError> for ConvertError {
   fn from(err: calamine::XlsxError) -> Self {
     match err {
-      _ => ParseError::XlsxError(err.to_string()),
+      _ => ConvertError::XlsxError(err.to_string()),
     }
   }
 }
 
-impl From<ParseIntError> for ParseError {
+impl From<ParseIntError> for ConvertError {
   fn from(err: ParseIntError) -> Self {
     match err {
-      _ => ParseError::ExpectedInt,
+      _ => ConvertError::ExpectedInt,
     }
   }
 }
 
-pub(crate) type Result<T> = std::result::Result<T, ParseError>;
+impl From<serde_json::Error> for ConvertError {
+  fn from(err: Error) -> Self {
+    match err {
+      _ => ConvertError::SerializeError(err.to_string()),
+    }
+  }
+}
+
+impl From<std::io::Error> for ConvertError {
+  fn from(err: std::io::Error) -> Self {
+    match err {
+      _ => ConvertError::IOError(err.to_string()),
+    }
+  }
+}
+
+pub(crate) type Result<T> = std::result::Result<T, ConvertError>;

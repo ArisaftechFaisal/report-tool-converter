@@ -1,6 +1,7 @@
 use super::subtypes::{InputSpecification, Validator, ValidatorType};
 use super::Field;
-use crate::converter::error::{ParseError, Result};
+use crate::converter::error::{ConvertError, Result};
+use crate::converter::field::subtypes::OptionType;
 
 impl Field {
   pub(super) fn text_validators(
@@ -97,7 +98,7 @@ impl Field {
     min: &Option<u64>,
     max: &Option<u64>,
     placeholder_text: &Option<String>,
-    options: &Option<Vec<String>>,
+    options: &Option<Vec<OptionType>>,
   ) -> Result<Vec<Validator>> {
     let mut validators = Vec::<Validator>::new();
     match (min, max) {
@@ -130,11 +131,12 @@ impl Field {
       // If options empty or placeholder text(s) (exception) text not in options, return error
       for &exc in exceptions.iter() {
         if let Some(opts) = options {
-          if opts.is_empty() || !opts.contains(&exc.to_owned()) {
-            return Err(ParseError::PlaceholderNotInOptions);
+          // if opts.is_empty() || !opts.contains(&exc.to_owned()) {
+          if opts.is_empty() || !opts.iter().find(|&s| s.is_val(exc)).is_some() {
+            return Err(ConvertError::PlaceholderNotInOptions);
           }
         } else {
-          return Err(ParseError::PlaceholderNotInOptions);
+          return Err(ConvertError::PlaceholderNotInOptions);
         }
       }
       match exceptions.len() {

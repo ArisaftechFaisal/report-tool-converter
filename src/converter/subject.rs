@@ -1,4 +1,4 @@
-use super::error::ParseError;
+use super::error::ConvertError;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
@@ -31,7 +31,7 @@ pub(crate) enum Subject {
 }
 
 impl FromStr for Subject {
-  type Err = ParseError;
+  type Err = ConvertError;
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
     match s {
@@ -47,7 +47,7 @@ impl FromStr for Subject {
       "プレースホルダ" => Ok(Subject::Placeholder),
       "入力指定" => Ok(Subject::InputSpecification),
       options if options.starts_with("プルダウン") => Ok(Subject::Options),
-      unknown_subject => Err(ParseError::IncorrectSubject(unknown_subject.to_owned())),
+      unknown_subject => Err(ConvertError::IncorrectSubject(unknown_subject.to_owned())),
     }
   }
 }

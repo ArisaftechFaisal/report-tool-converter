@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/node
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
 
@@ -113,10 +112,15 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-
 #Added by cargo
 
 /target
 Cargo.lock
 
 *.node
+
+# XLSX lock files
+*.xlsx#
+
+# Test output
+resources/*_output.json

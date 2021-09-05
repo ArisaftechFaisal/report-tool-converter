@@ -1,10 +1,16 @@
-use super::error::{ParseError, Result};
+use super::error::{ConvertError, Result};
 use calamine::DataType;
 use serde::{Deserialize, Serialize};
 
 pub mod subtypes;
 mod validators;
 use subtypes::*;
+
+#[derive(Serialize, Deserialize, Debug)]
+pub(crate) struct Page {
+  #[serde(rename = "Elements")]
+  elements: Vec<Field>,
+}
 
 #[derive(Serialize, Deserialize, Debug)]
 pub(crate) struct Field {
@@ -27,7 +33,7 @@ pub(crate) struct Field {
   input_specification: Option<InputSpecification>,
 
   #[serde(rename = "Options", skip_serializing_if = "Option::is_none")]
-  options: Option<Vec<String>>,
+  options: Option<Vec<OptionType>>,
 
   #[serde(rename = "OptionsFromKey", skip_serializing_if = "Option::is_none")]
   options_from_key: Option<String>,
@@ -51,6 +57,12 @@ pub(crate) struct Field {
   processed: ProcessedData,
 }
 
+impl Page {
+  pub fn new(elements: Vec<Field>) -> Self {
+    Page { elements }
+  }
+}
+
 impl Field {
   pub fn new(
     is_required: bool,
@@ -59,7 +71,7 @@ impl Field {
     label: String,
     placeholder_text: Option<String>,
     input_specification: Option<InputSpecification>,
-    options: Option<Vec<String>>,
+    options: Option<Vec<OptionType>>,
     options_from_key: Option<String>,
     max: Option<u64>,
     min: Option<u64>,
@@ -67,7 +79,6 @@ impl Field {
     display_condition_second: Option<Vec<String>>,
     display_condition_third: Option<Vec<String>>,
   ) -> Result<Self> {
-
     // Placeholder logic
     let mut placeholder: Option<String> = None;
     let mut options_key: Option<String> = None;
@@ -124,6 +135,12 @@ impl Field {
       }
     }
 
+    // Visibility logic
+    let mut visible: Option<String> = None;
+    if let Some(ref opt_from_key) = options_from_key {
+      visible = Some(format!("${{{0}}} && ${{{0}}}.length > 1", opt_from_key));
+    }
+
     Ok(Field {
       is_required,
       field_name,
@@ -142,7 +159,8 @@ impl Field {
         validators,
         price_max,
         placeholder,
-        options_key,
+        options_caption: options_key,
+        visible,
       },
     })
   }
@@ -152,10 +170,10 @@ impl Field {
       DataType::String(s) => Ok(
         s.trim_start_matches("field")
           .parse::<usize>()
-          .map_err(|_| ParseError::UnparseableFieldNumber)?,
+          .map_err(|_| ConvertError::UnparseableFieldNumber)?,
       ),
       DataType::Int(i) => Ok(*i as usize),
-      _ => Err(ParseError::ExpectedIntOrString),
+      _ => Err(ConvertError::ExpectedIntOrString),
     }
   }
 
@@ -166,23 +184,23 @@ impl Field {
       DataType::String(s) => match s.as_str() {
         "表示(必須)" => Ok(Some(true)),
         "表示(任意)" => Ok(Some(false)),
-        unknown_string => Err(ParseError::IncorrectRequired(unknown_string.to_owned())),
+        unknown_string => Err(ConvertError::IncorrectRequired(unknown_string.to_owned())),
       },
-      _ => Err(ParseError::ExpectedString),
+      _ => Err(ConvertError::ExpectedString),
     }
   }
 
   pub fn variant_from_datatype(dt: &DataType) -> Result<FieldVariant> {
     match dt {
       DataType::String(s) => Ok(s.parse::<FieldVariant>()?),
-      _ => Err(ParseError::ExpectedString),
+      _ => Err(ConvertError::ExpectedString),
     }
   }
 
   pub fn label_from_datatype(dt: &DataType) -> Result<String> {
     match dt {
       DataType::String(s) => Ok(s.to_owned()),
-      _ => Err(ParseError::ExpectedString),
+      _ => Err(ConvertError::ExpectedString),
     }
   }
 
@@ -191,7 +209,7 @@ impl Field {
       DataType::Empty => Ok(None),
       DataType::String(s) if s.is_empty() => Ok(None),
       DataType::String(s) => Ok(Some(s.parse::<InputSpecification>()?)),
-      _ => Err(ParseError::ExpectedString),
+      _ => Err(ConvertError::ExpectedString),
     }
   }
 
@@ -203,7 +221,7 @@ impl Field {
       DataType::Float(f) => Ok(Some(format!("{}", f))),
       DataType::Int(i) => Ok(Some(format!("{}", i))),
       DataType::DateTime(f) => Ok(Some(format!("{}", f))),
-      _ => Err(ParseError::UnparseableCell),
+      _ => Err(ConvertError::UnparseableCell),
     }
   }
 
@@ -215,7 +233,7 @@ impl Field {
       DataType::Float(f) => Ok(Some(*f as u64)),
       DataType::Int(i) => Ok(Some(*i as u64)),
       DataType::DateTime(f) => Ok(Some(*f as u64)),
-      _ => Err(ParseError::UnparseableCell),
+      _ => Err(ConvertError::UnparseableCell),
     }
   }
 

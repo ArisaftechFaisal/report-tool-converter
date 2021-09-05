@@ -1,0 +1,64 @@
+{
+  "Elements": [
+    {
+      "QuestionKey": "field1",
+      "Required": true,
+      "Type": "textarea",
+      "Label": "感じている不満をお知らせください。",
+      "Placeholder": "感じている不満をお知らせください。",
+      "Validators": [
+        {
+          "Type": "text",
+          "Text": "15文字以上で入力してください",
+          "MinLength": 15
+        }
+      ],
+      "PriceMax": 5
+    },
+    {
+      "QuestionKey": "field2",
+      "Required": false,
+      "Type": "textarea",
+      "Label": "感じている不満をお知らせください。",
+      "Placeholder": "詳しくお知らせください。",
+      "Validators": [
+        {
+          "Type": "text",
+          "Text": "15文字以上で入力してください",
+          "MinLength": 15
+        }
+      ],
+      "PriceMax": 5
+    },
+    {
+      "QuestionKey": "field3",
+      "Required": true,
+      "Type": "textarea",
+      "Label": "感じている不満をお知らせください。",
+      "Placeholder": "感じている不満をお知らせください。",
+      "Validators": [
+        {
+          "Type": "text",
+          "Text": "10文字以上で入力してください",
+          "MinLength": 10
+        }
+      ],
+      "PriceMax": 5
+    },
+    {
+      "QuestionKey": "field4",
+      "Required": true,
+      "Type": "textarea",
+      "Label": "感じている不満をお知らせください。",
+      "Placeholder": "感じている不満をお知らせください。",
+      "Validators": [
+        {
+          "Type": "text",
+          "Text": "15文字以上で入力してください",
+          "MinLength": 15
+        }
+      ],
+      "PriceMax": 10
+    }
+  ]
+}

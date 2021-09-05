@@ -1,0 +1,61 @@
+{
+  "Elements": [
+    {
+      "QuestionKey": "field1",
+      "Required": true,
+      "Type": "text",
+      "Label": "好きな犬の犬種をお知らせください。",
+      "Placeholder": "好きな犬の犬種をお知らせください。"
+    },
+    {
+      "QuestionKey": "field2",
+      "Required": true,
+      "Type": "text",
+      "Label": "あなたの好きな4文字熟語をお知らせください。",
+      "Placeholder": "4文字の入力が可能です。",
+      "Validators": [
+        {
+          "Type": "text",
+          "Text": "4文字で入力してください",
+          "MinLength": 4,
+          "MaxLength": 4
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field3",
+      "Required": true,
+      "Type": "text",
+      "Label": "あなたの年齢をお知らせください。",
+      "input_specification": "HalfWidthNumber",
+      "Placeholder": "あなたの年齢をお知らせください。",
+      "Validators": [
+        {
+          "Type": "expression",
+          "Text": "1歳以上100歳未満で入力してください。",
+          "Expression": "${field3} && ${field3} >= 1 && ${field3} < 100"
+        },
+        {
+          "Type": "expression",
+          "Text": "入力できるのは半角数字のみです",
+          "Expression": "${field3} && ${field3}.match(/^[0-9]+$/)"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field4",
+      "Required": true,
+      "Type": "text",
+      "Label": "あなたの好きな英単語をお知らせください。",
+      "input_specification": "HalfWidthKanji",
+      "Placeholder": "あなたの好きな英単語をお知らせください。",
+      "Validators": [
+        {
+          "Type": "expression",
+          "Text": "入力できるのは半角英字のみです",
+          "Expression": "${field4} && ${field4}.match(/^([a-zA-Z])+$/)"
+        }
+      ]
+    }
+  ]
+}

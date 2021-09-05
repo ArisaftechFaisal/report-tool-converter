@@ -1,17 +1,17 @@
-use super::error::{ParseError, Result};
+use super::error::{ConvertError, Result};
 use super::field::{
   subtypes::{FieldVariant, InputSpecification},
-  Field,
+  Field, Page,
 };
 use super::subject::Subject;
-use crate::constants;
+use crate::converter::field::subtypes::OptionType;
 use calamine::{open_workbook, DataType, Reader, Xlsx};
 
-fn parse(path: &str) -> Result<Vec<Field>> {
+pub(crate) fn parse(path: &str) -> Result<Page> {
   let mut workbook: Xlsx<_> = open_workbook(path)?;
   let worksheet = workbook
     .worksheet_range_at(0)
-    .ok_or(ParseError::NoWorksheet)??;
+    .ok_or(ConvertError::NoWorksheet)??;
 
   let mut fields = Vec::<Field>::new();
   let max_field_cnt = 100usize;
@@ -26,7 +26,8 @@ fn parse(path: &str) -> Result<Vec<Field>> {
     let mut placeholder_text: Option<String> = None;
     let mut input_specification: Option<InputSpecification> = None;
     let mut options_from_key: Option<String> = None;
-    let mut options = Vec::<String>::new();
+    let mut options = Vec::<OptionType>::new();
+    // TODO: implement deserialize and serialize logic for display conditions
     let display_condition_first = Vec::<String>::new();
     let display_condition_second = Vec::<String>::new();
     let display_condition_third = Vec::<String>::new();
@@ -101,7 +102,7 @@ fn parse(path: &str) -> Result<Vec<Field>> {
           let option = Field::optional_string_from_datatype(dt)?;
           match option {
             Some(s) => {
-              options.push(s.to_owned());
+              options.push(OptionType::new(s.to_owned()));
             }
             None => {
               break 'row_loop;
@@ -135,20 +136,5 @@ fn parse(path: &str) -> Result<Vec<Field>> {
     )?);
   }
 
-  Ok(fields)
-}
-
-#[cfg(test)]
-mod parse_tests {
-  use super::*;
-  use std::path::Path;
-
-  #[test]
-  fn test_read_worksheet() {
-    let path = Path::new(constants::PATH_TEST_01).to_str().unwrap();
-    println!("path: {}", path);
-    let res = parse(path);
-    println!("{:?}", res);
-    assert_eq!(1, 1);
-  }
+  Ok(Page::new(fields))
 }

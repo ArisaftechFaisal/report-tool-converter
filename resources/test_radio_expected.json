@@ -1,0 +1,192 @@
+{
+  "Elements": [
+    {
+      "QuestionKey": "field1",
+      "Required": true,
+      "Type": "radio",
+      "Label": "血液型をお知らせください。",
+      "Options": [
+        {
+          "Value": "A",
+          "Label": "A"
+        },
+        {
+          "Value": "B",
+          "Label": "B"
+        },
+        {
+          "Value": "O",
+          "Label": "O"
+        },
+        {
+          "Value": "AB",
+          "Label": "AB"
+        },
+        {
+          "Value": "わからない",
+          "Label": "わからない"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field2",
+      "Required": false,
+      "Type": "radio",
+      "Label": "自分とは合わない血液型をお知らせください。【任意】",
+      "Options": [
+        {
+          "Value": "A",
+          "Label": "A"
+        },
+        {
+          "Value": "B",
+          "Label": "B"
+        },
+        {
+          "Value": "O",
+          "Label": "O"
+        },
+        {
+          "Value": "AB",
+          "Label": "AB"
+        },
+        {
+          "Value": "特にない",
+          "Label": "特にない"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field3",
+      "Required": true,
+      "Type": "radio",
+      "Label": "あなたの性格は？以下より1つ選択ください。",
+      "Options": [
+        {
+          "Value": "まじめ",
+          "Label": "まじめ"
+        },
+        {
+          "Value": "潔癖",
+          "Label": "潔癖"
+        },
+        {
+          "Value": "明るい",
+          "Label": "明るい"
+        },
+        {
+          "Value": "暗い",
+          "Label": "暗い"
+        },
+        {
+          "Value": "せっかち",
+          "Label": "せっかち"
+        },
+        {
+          "Value": "おっとり",
+          "Label": "おっとり"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field4",
+      "Required": true,
+      "Type": "radio",
+      "Label": "生まれ月をお知らせください。",
+      "Options": [
+        {
+          "Value": "4月",
+          "Label": "4月"
+        },
+        {
+          "Value": "5月",
+          "Label": "5月"
+        },
+        {
+          "Value": "6月",
+          "Label": "6月"
+        },
+        {
+          "Value": "7月",
+          "Label": "7月"
+        },
+        {
+          "Value": "8月",
+          "Label": "8月"
+        },
+        {
+          "Value": "9月",
+          "Label": "9月"
+        },
+        {
+          "Value": "10月",
+          "Label": "10月"
+        },
+        {
+          "Value": "11月",
+          "Label": "11月"
+        },
+        {
+          "Value": "12月",
+          "Label": "12月"
+        },
+        {
+          "Value": "1月",
+          "Label": "1月"
+        },
+        {
+          "Value": "2月",
+          "Label": "2月"
+        },
+        {
+          "Value": "3月",
+          "Label": "3月"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field5",
+      "Required": true,
+      "Type": "checkbox",
+      "Label": "好きな色を全てお知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field6",
+      "Required": true,
+      "Type": "radio",
+      "Label": "その中でもっとも好きな色をお知らせください。",
+      "OptionsFromKey": "field6",
+      "Visible": "${field6} && ${field6}.length > 1"
+    }
+  ]
+}
