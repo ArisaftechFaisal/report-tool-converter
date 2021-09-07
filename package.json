@@ -1,27 +1,17 @@
 {
-  "name": "@napi-rs/package-template",
-  "version": "1.0.0",
+  "name": "@report-tool/converter",
+  "version": "1.1.4",
   "description": "Template project for writing node package with napi-rs",
   "main": "index.js",
-  "repository": "git@github.com:napi-rs/package-template.git",
+  "repository": "git@github.com:ArisaftechFaisal/report-tool-converter.git",
   "license": "MIT",
   "keywords": ["napi-rs", "NAPI", "N-API", "Rust", "node-addon", "node-addon-api"],
   "files": ["index.d.ts", "index.js"],
   "napi": {
-    "name": "package-template",
+    "name": "converter",
     "triples": {
-      "defaults": true,
-      "additional": [
-        "x86_64-unknown-linux-musl",
-        "aarch64-unknown-linux-gnu",
-        "i686-pc-windows-msvc",
-        "armv7-unknown-linux-gnueabihf",
-        "aarch64-apple-darwin",
-        "aarch64-linux-android",
-        "x86_64-unknown-freebsd",
-        "aarch64-unknown-linux-musl",
-        "aarch64-pc-windows-msvc"
-      ]
+      "defaults": false,
+      "additional": ["x86_64-pc-windows-msvc", "x86_64-unknown-linux-gnu"]
     }
   },
   "engines": {
@@ -45,9 +35,12 @@
     "lint": "eslint . -c ./.eslintrc.yml './**/*.{ts,tsx,js}'",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "ava",
-    "version": "napi version"
+    "version": "napi version",
+    "commit": "cz"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@napi-rs/cli": "^1.3.1",
     "@swc-node/register": "^1.3.4",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
@@ -55,6 +48,8 @@
     "ava": "^3.15.0",
     "benny": "^3.6.15",
     "chalk": "^4.1.2",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
@@ -62,6 +57,7 @@
     "eslint-plugin-sonarjs": "^0.10.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
+    "lodash": "^4.17.21",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "typescript": "^4.4.2"
@@ -89,5 +85,10 @@
     "singleQuote": true,
     "arrowParens": "always",
     "parser": "typescript"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

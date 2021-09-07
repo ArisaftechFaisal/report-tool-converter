@@ -1,39 +1,25 @@
-# `@napi-rs/package-template`
+# `@report-tool/converter`
 
 ![https://github.com/napi-rs/package-template/actions](https://github.com/napi-rs/package-template/workflows/CI/badge.svg)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-> Template project for writing node package with napi-rs.
-
-## Install this test package
-
-```
-yarn add @napi-rs/package-template
-```
+> N-API module to extract metadata as JSON from specifically formatted Excel files/
 
 ## Support matrix
 
 ### Operating Systems
 
-|                  | node12 | node14 | node16 |
-| ---------------- | ------ | ------ | ------ |
-| Windows x64      | ✓      | ✓      | ✓      |
-| Windows x32      | ✓      | ✓      | ✓      |
-| Windows arm64    | ✓      | ✓      | ✓      |
-| macOS x64        | ✓      | ✓      | ✓      |
-| macOS arm64      | ✓      | ✓      | ✓      |
-| Linux x64 gnu    | ✓      | ✓      | ✓      |
-| Linux x64 musl   | ✓      | ✓      | ✓      |
-| Linux arm gnu    | ✓      | ✓      | ✓      |
-| Linux arm64 gnu  | ✓      | ✓      | ✓      |
-| Linux arm64 musl | ✓      | ✓      | ✓      |
-| Android arm64    | ✓      | ✓      | ✓      |
-| FreeBSD x64      | ✓      | ✓      | ✓      |
+|               | node12 | node14 | node16 |
+| ------------- | ------ | ------ | ------ |
+| Windows x64   | ×      | ✓      | ×      |
+| Windows x32   | ×      | ✓      | ×      |
+| Linux x64 gnu | ×      | ✓      | ×      |
 
-## Ability
+## Development Scripts / Abilities
 
 ### Build
 
-After `yarn build/npm run build` command, you can see `package-template.[darwin|win32|linux].node` file in project root. This is the native addon built from [lib.rs](./src/lib.rs).
+After `yarn build/npm run build` command, you can see `converter.[darwin|win32|linux].node` file in project root. This is the native addon built from [lib.rs](./src/lib.rs).
 
 ### Test
 

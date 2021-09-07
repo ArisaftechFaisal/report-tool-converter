@@ -1,0 +1,268 @@
+{
+  "Elements": [
+    {
+      "QuestionKey": "field1",
+      "Required": true,
+      "Type": "checkbox",
+      "Label": "好きな色を全てお知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field2",
+      "Required": false,
+      "Type": "checkbox",
+      "Label": "好きな色を2つ以上お知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        }
+      ],
+      "Validators": [
+        {
+          "Type": "answercount",
+          "Text": "選択肢は2個以上",
+          "MinLength": 2
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field3",
+      "Required": true,
+      "Type": "checkbox",
+      "Label": "好きな色を3つまでお知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        }
+      ],
+      "Validators": [
+        {
+          "Type": "answercount",
+          "Text": "選択肢は3個以下",
+          "MaxLength": 3
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field4",
+      "Required": true,
+      "Type": "checkbox",
+      "Label": "好きな色を3つお知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        }
+      ],
+      "Validators": [
+        {
+          "Type": "answercount",
+          "Text": "選択肢は3個以上3以下",
+          "MinLength": 3,
+          "MaxLength": 3
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field5",
+      "Required": true,
+      "Type": "checkbox",
+      "Label": "好きな色を全てお知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        },
+        {
+          "Value": "好きな色はない",
+          "Label": "好きな色はない"
+        }
+      ],
+      "Validators": [
+        {
+          "Type": "expression",
+          "Text": "好きな色はないが選択されています。",
+          "Expression": "${field5} && (${field5}.includes('好きな色はない') && ${field5}.length === 1) || !${field5}.includes('好きな色はない')"
+        }
+      ]
+    },
+    {
+      "QuestionKey": "field6",
+      "Required": true,
+      "Type": "checkbox",
+      "Label": "好きな色を全てお知らせください。",
+      "Options": [
+        {
+          "Value": "赤",
+          "Label": "赤"
+        },
+        {
+          "Value": "白",
+          "Label": "白"
+        },
+        {
+          "Value": "黒",
+          "Label": "黒"
+        },
+        {
+          "Value": "黄色",
+          "Label": "黄色"
+        },
+        {
+          "Value": "橙",
+          "Label": "橙"
+        },
+        {
+          "Value": "緑",
+          "Label": "緑"
+        },
+        {
+          "Value": "青",
+          "Label": "青"
+        },
+        {
+          "Value": "好きな色はない",
+          "Label": "好きな色はない"
+        },
+        {
+          "Value": "この中にはない",
+          "Label": "この中にはない"
+        }
+      ],
+      "Validators": [
+        {
+          "Type": "expression",
+          "Text": "好きな色はないが選択されています。",
+          "Expression": "${field6} && (${field6}.some(item => ['好きな色はない', 'この中にはない'].includes(item)) && ${field6}.length === 1) || !${field6}.some(item => ['好きな色はない', 'この中にはない'].includes(item))"
+        }
+      ]
+    }
+  ]
+}
