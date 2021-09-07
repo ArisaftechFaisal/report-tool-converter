@@ -1,14 +1,14 @@
 {
-  "name": "report-tool-converter",
+  "name": "@report-tool/converter",
   "version": "1.1.2",
   "description": "Template project for writing node package with napi-rs",
   "main": "index.js",
-  "repository": "git@github.com:napi-rs/package-template.git",
+  "repository": "git@github.com:ArisaftechFaisal/report-tool-converter.git",
   "license": "MIT",
   "keywords": ["napi-rs", "NAPI", "N-API", "Rust", "node-addon", "node-addon-api"],
   "files": ["index.d.ts", "index.js"],
   "napi": {
-    "name": "report-tool-converter",
+    "name": "converter",
     "triples": {
       "defaults": false,
       "additional": ["x86_64-pc-windows-msvc", "x86_64-unknown-linux-gnu"]
