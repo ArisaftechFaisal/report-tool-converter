@@ -1,6 +1,6 @@
 {
   "name": "@report-tool/converter",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Template project for writing node package with napi-rs",
   "main": "index.js",
   "repository": "git@github.com:ArisaftechFaisal/report-tool-converter.git",
