@@ -1,6 +1,6 @@
 {
   "name": "report-tool-converter-linux-x64-gnu",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "os": ["linux"],
   "cpu": ["x64"],
   "main": "converter.linux-x64-gnu.node",
