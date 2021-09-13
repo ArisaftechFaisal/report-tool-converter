@@ -21,6 +21,8 @@ pub enum ConvertError {
   IncorrectRequired(String),
   #[error("Wrong input specification format \"{0}\"")]
   IncorrectInputSpecificationError(String),
+  #[error("Wrong number input specification format \"{0}\"")]
+  IncorrectNumInputSpecificationError(String),
   #[error("Expected string, found something else")]
   ExpectedString,
   #[error("Expected whole number, found something else")]

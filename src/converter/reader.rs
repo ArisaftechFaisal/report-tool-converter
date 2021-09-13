@@ -1,10 +1,10 @@
 use super::error::{ConvertError, Result};
 use super::field::{
-  subtypes::{FieldVariant, InputSpecification},
+  subtypes::{FieldVariant, InputSpec},
   Field, Page,
 };
 use super::subject::Subject;
-use crate::converter::field::subtypes::OptionType;
+use crate::converter::field::subtypes::{OptionType, NumInputSpec};
 use calamine::{open_workbook, DataType, Reader, Xlsx};
 
 pub(crate) fn parse(path: &str) -> Result<Page> {
@@ -24,7 +24,9 @@ pub(crate) fn parse(path: &str) -> Result<Page> {
     let mut max: Option<u64> = None;
     let mut label: String = "".to_owned();
     let mut placeholder_text: Option<String> = None;
-    let mut input_specification: Option<InputSpecification> = None;
+    let mut input_spec: Option<InputSpec> = None;
+    let mut num_input_spec: Option<NumInputSpec> = None;
+    let mut num_input_spec_error: Option<String> = None;
     let mut options_from_key: Option<String> = None;
     let mut options = Vec::<OptionType>::new();
     // TODO: implement deserialize and serialize logic for display conditions
@@ -92,9 +94,15 @@ pub(crate) fn parse(path: &str) -> Result<Page> {
             }
           }
         }
-        Subject::InputSpecification => {
-          input_specification = Field::input_specification_from_datatype(dt)?;
+        Subject::InputSpec => {
+          input_spec = Field::input_specification_from_datatype(dt)?;
         }
+        Subject::NumInputSpec => {
+          num_input_spec = Field::num_input_specification_from_datatype(dt)?;
+        },
+        Subject::NumInputSpecError => {
+          num_input_spec_error = Field::optional_string_from_datatype(dt)?;
+        },
         Subject::Options => {
           if ignore_options {
             break;
@@ -125,7 +133,9 @@ pub(crate) fn parse(path: &str) -> Result<Page> {
       variant,
       label,
       placeholder_text,
-      input_specification,
+      input_spec,
+      num_input_spec,
+      num_input_spec_error,
       options,
       options_from_key,
       max,

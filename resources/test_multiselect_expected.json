@@ -208,7 +208,7 @@
       "Validators": [
         {
           "Type": "expression",
-          "Text": "好きな色はないが選択されています。",
+          "Text": "[好きな色はない]が選択されています。",
           "Expression": "${field5} && (${field5}.includes('好きな色はない') && ${field5}.length === 1) || !${field5}.includes('好きな色はない')"
         }
       ]
@@ -259,7 +259,7 @@
       "Validators": [
         {
           "Type": "expression",
-          "Text": "好きな色はないが選択されています。",
+          "Text": "[好きな色はない]または[この中にはない]が選択されています。",
           "Expression": "${field6} && (${field6}.some(item => ['好きな色はない', 'この中にはない'].includes(item)) && ${field6}.length === 1) || !${field6}.some(item => ['好きな色はない', 'この中にはない'].includes(item))"
         }
       ]

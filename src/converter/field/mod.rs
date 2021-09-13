@@ -29,8 +29,17 @@ pub(crate) struct Field {
   #[serde(skip)]
   placeholder_text: Option<String>,
 
-  #[serde(skip_serializing_if = "Option::is_none")]
-  input_specification: Option<InputSpecification>,
+  // #[serde(skip_serializing_if = "Option::is_none")]
+  #[serde(skip)]
+  input_spec: Option<InputSpec>,
+
+  // #[serde(skip_serializing_if = "Option::is_none")]
+  #[serde(skip)]
+  num_input_spec: Option<NumInputSpec>,
+
+  // #[serde(skip_serializing_if = "Option::is_none")]
+  #[serde(skip)]
+  num_input_spec_error: Option<String>,
 
   #[serde(rename = "Options", skip_serializing_if = "Option::is_none")]
   options: Option<Vec<OptionType>>,
@@ -44,13 +53,16 @@ pub(crate) struct Field {
   #[serde(skip)]
   min: Option<u64>,
 
-  #[serde(skip_serializing_if = "Option::is_none")]
+  // #[serde(skip_serializing_if = "Option::is_none")]
+  #[serde(skip)]
   display_condition_first: Option<Vec<String>>,
 
-  #[serde(skip_serializing_if = "Option::is_none")]
+  // #[serde(skip_serializing_if = "Option::is_none")]
+  #[serde(skip)]
   display_condition_second: Option<Vec<String>>,
 
-  #[serde(skip_serializing_if = "Option::is_none")]
+  // #[serde(skip_serializing_if = "Option::is_none")]
+  #[serde(skip)]
   display_condition_third: Option<Vec<String>>,
 
   #[serde(flatten)]
@@ -70,7 +82,9 @@ impl Field {
     variant: FieldVariant,
     label: String,
     placeholder_text: Option<String>,
-    input_specification: Option<InputSpecification>,
+    input_spec: Option<InputSpec>,
+    num_input_spec: Option<NumInputSpec>,
+    num_input_spec_error: Option<String>,
     options: Option<Vec<OptionType>>,
     options_from_key: Option<String>,
     max: Option<u64>,
@@ -106,7 +120,9 @@ impl Field {
           &field_name,
           &min,
           &max,
-          &input_specification,
+          &input_spec,
+          &num_input_spec,
+          &num_input_spec_error
         ));
       }
       FieldVariant::TextArea => {
@@ -143,7 +159,9 @@ impl Field {
       variant,
       label,
       placeholder_text,
-      input_specification,
+      input_spec,
+      num_input_spec,
+      num_input_spec_error,
       options,
       options_from_key,
       max,
@@ -200,12 +218,21 @@ impl Field {
     }
   }
 
-  pub fn input_specification_from_datatype(dt: &DataType) -> Result<Option<InputSpecification>> {
+  pub fn input_specification_from_datatype(dt: &DataType) -> Result<Option<InputSpec>> {
     match dt {
       DataType::Empty => Ok(None),
       DataType::String(s) if s.is_empty() => Ok(None),
-      DataType::String(s) => Ok(Some(s.parse::<InputSpecification>()?)),
+      DataType::String(s) => Ok(Some(s.parse::<InputSpec>()?)),
       _ => Err(ConvertError::ExpectedString),
+    }
+  }
+
+  pub fn num_input_specification_from_datatype(dt: &DataType) -> Result<Option<NumInputSpec>> {
+    match dt {
+      DataType::Empty => Ok(None),
+      DataType::String(s) if s.is_empty() => Ok(None),
+      DataType::String(s) => Ok(Some(s.parse::<NumInputSpec>()?)),
+      _ => Err(ConvertError::ExpectedString)
     }
   }
 

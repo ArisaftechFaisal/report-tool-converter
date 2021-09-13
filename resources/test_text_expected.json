@@ -27,13 +27,12 @@
       "Required": true,
       "Type": "text",
       "Label": "あなたの年齢をお知らせください。",
-      "input_specification": "HalfWidthNumber",
       "Placeholder": "あなたの年齢をお知らせください。",
       "Validators": [
         {
           "Type": "expression",
-          "Text": "1歳以上100歳未満で入力してください。",
-          "Expression": "${field3} && ${field3} >= 1 && ${field3} < 100"
+          "Text": "10以上90未満の数字で入力してください。",
+          "Expression": "${field3} && ${field3} >= 10 && ${field3} < 90"
         },
         {
           "Type": "expression",
@@ -47,7 +46,6 @@
       "Required": true,
       "Type": "text",
       "Label": "あなたの好きな英単語をお知らせください。",
-      "input_specification": "HalfWidthKanji",
       "Placeholder": "あなたの好きな英単語をお知らせください。",
       "Validators": [
         {

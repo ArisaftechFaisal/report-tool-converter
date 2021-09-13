@@ -1,14 +1,16 @@
-use super::subtypes::{InputSpecification, Validator, ValidatorType};
+use super::subtypes::{InputSpec, Validator, ValidatorType};
 use super::Field;
 use crate::converter::error::{ConvertError, Result};
-use crate::converter::field::subtypes::OptionType;
+use crate::converter::field::subtypes::{OptionType, NumInputSpec};
 
 impl Field {
   pub(super) fn text_validators(
     field_name: &str,
     min: &Option<u64>,
     max: &Option<u64>,
-    input_specification: &Option<InputSpecification>,
+    input_spec: &Option<InputSpec>,
+    num_input_spec: &Option<NumInputSpec>,
+    num_input_spec_error: &Option<String>
   ) -> Vec<Validator> {
     let mut validators = Vec::<Validator>::new();
     if let (Some(mn), Some(mx)) = (min, max) {
@@ -20,25 +22,40 @@ impl Field {
           max_length: *max,
           expression: None,
         });
-      } else if *mn == 1 && *mx == 2 {
-        if let Some(InputSpecification::HalfWidthNumber) = input_specification {
-          validators.push(Validator {
+      }
+      // else if *mn == 1 && *mx == 2 {
+      //   if let Some(InputSpec::HalfWidthNumber) = input_spec {
+      //     validators.push(Validator {
+      //       validator_type: ValidatorType::Expression,
+      //       text: "1歳以上100歳未満で入力してください。".to_owned(),
+      //       min_length: None,
+      //       max_length: None,
+      //       expression: Some(format!(
+      //         "${{{0}}} && ${{{0}}} >= 1 && ${{{0}}} < 100",
+      //         field_name
+      //       )),
+      //     });
+      //   }
+      // }
+      match (num_input_spec, num_input_spec_error) {
+        (Some(val), Some(error_text)) => {
+          validators.push(Validator{
             validator_type: ValidatorType::Expression,
-            text: "1歳以上100歳未満で入力してください。".to_owned(),
+            text: error_text.to_owned(),
             min_length: None,
             max_length: None,
             expression: Some(format!(
-              "${{{0}}} && ${{{0}}} >= 1 && ${{{0}}} < 100",
-              field_name
+              "${{{0}}} && ${{{0}}} >= {1} && ${{{0}}} < {2}", field_name, val.min, val.max
             )),
-          });
-        }
+          })
+        },
+        _ => ()
       }
     }
 
-    if let Some(inp_spec) = input_specification {
+    if let Some(inp_spec) = input_spec {
       match inp_spec {
-        InputSpecification::HalfWidthNumber => {
+        InputSpec::HalfWidthNumber => {
           if let (Some(mn), Some(mx)) = (*min, *max) {
             if mx == 2 && mn == 1 {
               validators.push(Validator {
@@ -54,7 +71,7 @@ impl Field {
             }
           }
         }
-        InputSpecification::HalfWidthKanji => {
+        InputSpec::HalfWidthKanji => {
           validators.push(Validator {
             validator_type: ValidatorType::Expression,
             text: "入力できるのは半角英字のみです".to_owned(),
@@ -138,25 +155,26 @@ impl Field {
                 0 => (),
                 1 => validators.push(Validator{
                     validator_type: ValidatorType::Expression,
-                    text: format!("{}が選択されています。", exceptions.get(0).unwrap()),
+                    text: format!("[{}]が選択されています。", exceptions.get(0).unwrap()),
                     min_length: None,
                     max_length: None,
                     expression: Some(format!("${{{0}}} && (${{{0}}}.includes('{1}') && ${{{0}}}.length === 1) || !${{{0}}}.includes('{1}')",
                                         field_name, exceptions.get(0).unwrap())),
                 }),
                 _ => {
-                    let first_exception = exceptions.get(0).unwrap().to_owned();
-                    let formatted_exceptions = exceptions.into_iter()
+                    let formatted_exceptions_text = exceptions.iter()
+                        .map(|&s| format!("[{}]", s))
+                        .collect::<Vec<String>>().join("または");
+                    let formatted_exceptions_expression = exceptions.into_iter()
                         .map(|s| format!("'{}'",s))
-                        .collect::<Vec<String>>();
-                    let formatted_exceptions = formatted_exceptions.join(", ");
+                        .collect::<Vec<String>>().join(", ");
                     validators.push(Validator{
                         validator_type: ValidatorType::Expression,
-                        text: format!("{}が選択されています。", first_exception),
+                        text: format!("{}が選択されています。", formatted_exceptions_text),
                         min_length: None,
                         max_length: None,
                         expression: Some(format!("${{{0}}} && (${{{0}}}.some(item => [{1}].includes(item)) && ${{{0}}}.length === 1) || !${{{0}}}.some(item => [{1}].includes(item))",
-                                                 field_name, formatted_exceptions))
+                                                 field_name, formatted_exceptions_expression))
 
                     })
                 }

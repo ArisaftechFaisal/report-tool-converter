@@ -66,21 +66,42 @@ impl OptionType {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub(crate) enum InputSpecification {
+pub(crate) enum InputSpec {
   HalfWidthNumber,
   HalfWidthKanji,
 }
 
-impl FromStr for InputSpecification {
+impl FromStr for InputSpec {
   type Err = ConvertError;
 
   fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
     match s {
-      "半角数字" => Ok(InputSpecification::HalfWidthNumber),
-      "半角英字" => Ok(InputSpecification::HalfWidthKanji),
+      "半角数字" => Ok(InputSpec::HalfWidthNumber),
+      "半角英字" => Ok(InputSpec::HalfWidthKanji),
       unknown_string => Err(ConvertError::IncorrectInputSpecificationError(
         unknown_string.to_owned(),
       )),
+    }
+  }
+}
+
+#[derive(Serialize, Deserialize, Debug, Copy, Clone)]
+pub(crate) struct NumInputSpec {
+  pub max: u32,
+  pub min: u32
+}
+
+impl FromStr for NumInputSpec {
+  type Err = ConvertError;
+
+  fn from_str(s: &str) -> Result<Self, Self::Err> {
+    match s.split('~').collect::<Vec<&str>>().as_slice() {
+      [mn,mx] => {
+        if let (Ok(min), Ok(max)) = (mn.parse::<u32>(), mx.parse::<u32>()) {
+          Ok(Self {min, max })
+        } else { Err(ConvertError::IncorrectNumInputSpecificationError(s.to_owned())) }
+      },
+      _ => Err(ConvertError::IncorrectNumInputSpecificationError(s.to_owned()))
     }
   }
 }
