@@ -23,33 +23,16 @@ impl Field {
           expression: None,
         });
       }
-      // else if *mn == 1 && *mx == 2 {
-      //   if let Some(InputSpec::HalfWidthNumber) = input_spec {
-      //     validators.push(Validator {
-      //       validator_type: ValidatorType::Expression,
-      //       text: "1歳以上100歳未満で入力してください。".to_owned(),
-      //       min_length: None,
-      //       max_length: None,
-      //       expression: Some(format!(
-      //         "${{{0}}} && ${{{0}}} >= 1 && ${{{0}}} < 100",
-      //         field_name
-      //       )),
-      //     });
-      //   }
-      // }
-      match (num_input_spec, num_input_spec_error) {
-        (Some(val), Some(error_text)) => {
-          validators.push(Validator{
-            validator_type: ValidatorType::Expression,
-            text: error_text.to_owned(),
-            min_length: None,
-            max_length: None,
-            expression: Some(format!(
-              "${{{0}}} && ${{{0}}} >= {1} && ${{{0}}} < {2}", field_name, val.min, val.max
-            )),
-          })
-        },
-        _ => ()
+      if let (Some(val), Some(error_text)) = (num_input_spec, num_input_spec_error) {
+        validators.push(Validator{
+          validator_type: ValidatorType::Expression,
+          text: error_text.to_owned(),
+          min_length: None,
+          max_length: None,
+          expression: Some(format!(
+            "${{{0}}} && ${{{0}}} >= {1} && ${{{0}}} < {2}", field_name, val.min, val.max
+          )),
+        });
       }
     }
 
