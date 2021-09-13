@@ -122,7 +122,7 @@ impl Field {
           &max,
           &input_spec,
           &num_input_spec,
-          &num_input_spec_error
+          &num_input_spec_error,
         ));
       }
       FieldVariant::TextArea => {
@@ -232,7 +232,7 @@ impl Field {
       DataType::Empty => Ok(None),
       DataType::String(s) if s.is_empty() => Ok(None),
       DataType::String(s) => Ok(Some(s.parse::<NumInputSpec>()?)),
-      _ => Err(ConvertError::ExpectedString)
+      _ => Err(ConvertError::ExpectedString),
     }
   }
 

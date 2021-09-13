@@ -1,7 +1,7 @@
 use super::subtypes::{InputSpec, Validator, ValidatorType};
 use super::Field;
 use crate::converter::error::{ConvertError, Result};
-use crate::converter::field::subtypes::{OptionType, NumInputSpec};
+use crate::converter::field::subtypes::{NumInputSpec, OptionType};
 
 impl Field {
   pub(super) fn text_validators(
@@ -10,7 +10,7 @@ impl Field {
     max: &Option<u64>,
     input_spec: &Option<InputSpec>,
     num_input_spec: &Option<NumInputSpec>,
-    num_input_spec_error: &Option<String>
+    num_input_spec_error: &Option<String>,
   ) -> Vec<Validator> {
     let mut validators = Vec::<Validator>::new();
     if let (Some(mn), Some(mx)) = (min, max) {
@@ -24,13 +24,14 @@ impl Field {
         });
       }
       if let (Some(val), Some(error_text)) = (num_input_spec, num_input_spec_error) {
-        validators.push(Validator{
+        validators.push(Validator {
           validator_type: ValidatorType::Expression,
           text: error_text.to_owned(),
           min_length: None,
           max_length: None,
           expression: Some(format!(
-            "${{{0}}} && ${{{0}}} >= {1} && ${{{0}}} < {2}", field_name, val.min, val.max
+            "${{{0}}} && ${{{0}}} >= {1} && ${{{0}}} < {2}",
+            field_name, val.min, val.max
           )),
         });
       }

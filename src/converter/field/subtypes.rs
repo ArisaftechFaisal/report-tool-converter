@@ -88,7 +88,7 @@ impl FromStr for InputSpec {
 #[derive(Serialize, Deserialize, Debug, Copy, Clone)]
 pub(crate) struct NumInputSpec {
   pub max: u32,
-  pub min: u32
+  pub min: u32,
 }
 
 impl FromStr for NumInputSpec {
@@ -96,12 +96,18 @@ impl FromStr for NumInputSpec {
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
     match s.split('~').collect::<Vec<&str>>().as_slice() {
-      [mn,mx] => {
+      [mn, mx] => {
         if let (Ok(min), Ok(max)) = (mn.parse::<u32>(), mx.parse::<u32>()) {
-          Ok(Self {min, max })
-        } else { Err(ConvertError::IncorrectNumInputSpecificationError(s.to_owned())) }
-      },
-      _ => Err(ConvertError::IncorrectNumInputSpecificationError(s.to_owned()))
+          Ok(Self { min, max })
+        } else {
+          Err(ConvertError::IncorrectNumInputSpecificationError(
+            s.to_owned(),
+          ))
+        }
+      }
+      _ => Err(ConvertError::IncorrectNumInputSpecificationError(
+        s.to_owned(),
+      )),
     }
   }
 }

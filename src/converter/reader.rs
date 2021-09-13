@@ -4,7 +4,7 @@ use super::field::{
   Field, Page,
 };
 use super::subject::Subject;
-use crate::converter::field::subtypes::{OptionType, NumInputSpec};
+use crate::converter::field::subtypes::{NumInputSpec, OptionType};
 use calamine::{open_workbook, DataType, Reader, Xlsx};
 
 pub(crate) fn parse(path: &str) -> Result<Page> {
@@ -99,10 +99,10 @@ pub(crate) fn parse(path: &str) -> Result<Page> {
         }
         Subject::NumInputSpec => {
           num_input_spec = Field::num_input_specification_from_datatype(dt)?;
-        },
+        }
         Subject::NumInputSpecError => {
           num_input_spec_error = Field::optional_string_from_datatype(dt)?;
-        },
+        }
         Subject::Options => {
           if ignore_options {
             break;
