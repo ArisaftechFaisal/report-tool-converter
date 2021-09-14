@@ -16,6 +16,7 @@ const inputPaths = {
   multiselect: testPath + 'test_multiselect.xlsx',
   radio: testPath + 'test_radio.xlsx',
   failNotExist: testPath + 'does_not_exist.xlsx',
+  failWrongFormat: testPath + 'test_wrong_format.xlsx',
 }
 
 const expectedPaths = {
@@ -32,7 +33,7 @@ const outputPaths = {
   textarea: testPath + 'test_textarea_output.json',
   multiselect: testPath + 'test_multiselect_output.json',
   radio: testPath + 'test_radio_output.json',
-  failNotExist: testPath + 'does_not_exist.json',
+  failOutput: testPath + 'error.json',
 }
 
 test('convert test for dropdowns', async (t) => {
@@ -55,9 +56,17 @@ test('convert test for radio', async (t) => {
   await testConvert(t, inputPaths.radio, outputPaths.radio, expectedPaths.radio)
 })
 
-test('error on fail', async (t) => {
+test('error on does not exist', async (t) => {
   try {
-    await testConvert(t, inputPaths.failNotExist, outputPaths.failNotExist, expectedPaths.radio)
+    await testConvert(t, inputPaths.failNotExist, outputPaths.failOutput, expectedPaths.radio)
+  } catch (err: any) {
+    t.assert(err.message)
+  }
+})
+
+test('error on wrong format', async (t) => {
+  try {
+    await testConvert(t, inputPaths.failWrongFormat, outputPaths.failOutput, expectedPaths.radio)
   } catch (err: any) {
     t.assert(err.message)
   }

@@ -46,6 +46,7 @@ fn convert(input_path: &str, ouput_path: &str) -> error::Result<()> {
 
 impl From<ConvertError> for napi::Error {
   fn from(err: ConvertError) -> Self {
-    napi::Error::from_reason(format!("{:?}", err))
+    // napi::Error::from_reason(format!("{:?}", err))
+    napi::Error::from_reason(err.to_string())
   }
 }
