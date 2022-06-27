@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.3",
     "@napi-rs/cli": "^2.10.0",
     "@swc-node/register": "^1.5.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
