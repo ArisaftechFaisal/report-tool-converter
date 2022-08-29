@@ -39,7 +39,7 @@
     "commit": "cz"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
+    "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@napi-rs/cli": "^2.11.4",
     "@swc-node/register": "^1.5.1",
